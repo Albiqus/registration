@@ -1,11 +1,12 @@
-import React from 'react';
 import './App.css';
+import { Registration } from './components/Registration/Registration';
+
 
 function App() {
-  return (
-    <div className="App">
-    </div>
-  );
+
+    return (
+        <Registration/>
+    );
 }
 
 export default App;
