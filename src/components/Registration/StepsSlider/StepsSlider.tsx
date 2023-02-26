@@ -11,9 +11,10 @@ export const StepsSlider = () => {
 
     const dispatch = useDispatch()
     const currentStep: any = useSelector((state: RootState) => state.main.currentStep)
-    
+    const isValid: any = useSelector((state: RootState) => state.main.isValid)
+
     const onNextSlideClick = () => {
-        if (currentStep !== 3) {
+        if (currentStep !== 3 && isValid) {
             dispatch({ type: 'SET_CURRENT_STEP', payload: { currentStep: currentStep + 1 } })
         }
     }
@@ -48,7 +49,7 @@ export const StepsSlider = () => {
                     <label onClick={onPrevSlideClick} className={classes.bar} htmlFor={`r${currentStep}`}>назад</label>
                 </div>
                 <div className={classes.wrapperNext }>
-                    <label onClick={onNextSlideClick} className={classes.bar} htmlFor={`r${currentStep}`}>далее</label>
+                     <label onClick={onNextSlideClick} className={classes.bar} htmlFor={`r${currentStep}`}>далее</label>
                 </div>
             </div>
         </div>
