@@ -2,8 +2,16 @@ body {
     background-color: rgba(0, 0, 0, 0.295);
 }
 
-* {
-    margin: 0;
-    padding: 0;
+::placeholder {
+    opacity: 0.5;
 }
 
+@font-face {
+    font-family: "custom_bold";
+    src: url("../fonts/centurygothic_bold.ttf");
+}
+
+@font-face {
+    font-family: "custom";
+    src: url("../fonts/centurygothic.ttf");
+}

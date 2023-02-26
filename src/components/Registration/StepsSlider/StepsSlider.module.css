@@ -3,7 +3,7 @@
     height: 600px;
     overflow: hidden;
     position: absolute;
-    top: 59%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -15,6 +15,7 @@
 }
 
 .slide {
+
     width: 25%;
     transition: all .6s ease;
 }
@@ -25,7 +26,7 @@
     justify-content: space-between;
     width: 600px;
     position: absolute;
-    bottom: 30px;
+    bottom: 0px;
     left: 50%;
     transform: translateX(-50%);
     -webkit-user-select: none;
@@ -53,13 +54,15 @@
 }
 
 .bar {
-    font-size: 30px;
+    font-family: 'custom',
+        sans-serif;
+    font-size: 25px;
     text-align: center;
-    height: 50px;
+    padding-top: 5px;
+    height: 40px;
     width: 200px;
-    margin: 6px;
     cursor: pointer;
-    background-color: rgb(105, 220, 233);
+  background-color: rgba(0, 191, 255, 0.322);
     border-radius: 10px;
     transition: all .4s ease;
 }
