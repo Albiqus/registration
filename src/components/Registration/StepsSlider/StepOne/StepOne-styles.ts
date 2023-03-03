@@ -141,3 +141,11 @@ export const P = styled.p`
     font-family: 'custom', sans-serif;
     font-size: 13px;
 `
+export const Img = styled.img`
+    position: absolute;
+    right: 300px;
+    top: 6px;
+    &:hover{
+        cursor: pointer;
+}
+`

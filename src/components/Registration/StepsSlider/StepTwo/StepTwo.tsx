@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../../store/redux-store"
 import { PhoneInput } from "./PhoneInput/PhoneInput"
-import { Div, Error, Input, Label, P, Span, Tooltip, Wrapper } from "./StepTwo-styles"
+import { Div, Error, Img, Input, Label, P, Span, Tooltip, Wrapper } from "./StepTwo-styles"
 import { useEffect, useState } from 'react';
 import { isValid } from "../../../../utils/isValid";
+import placeholder from '../../../../images/icons/placeholder.png'
 
 
 export const StepTwo = () => {
@@ -14,7 +15,7 @@ export const StepTwo = () => {
     const country: any = useSelector((state: RootState) => state.inputData.country)
     const city: any = useSelector((state: RootState) => state.inputData.city)
     const website: any = useSelector((state: RootState) => state.inputData.website)
-
+    
     const [emailError, setEmailError] = useState(false)
     const [phoneError, setPhoneError] = useState(false)
 
@@ -66,31 +67,33 @@ export const StepTwo = () => {
             dispatch({ type: 'ADD_VALID_STEP', payload: { step: 2 } })
         } else {
             dispatch({ type: 'DELETE_VALID_STEP', payload: { step: 2 } })
-        } 
+        }
     }, [email, phone, emailError, phoneError])
 
 
     return (
         <Div>
             <Wrapper>
-                <Label onMouseEnter={onEmailMouseEnter} onMouseLeave={onEmailMouseLeave}>Почта<Span title='обязательное поле'>*</Span></Label>
+                <Label>Почта<Span title='обязательное поле'>*</Span></Label>
+                <Img onMouseEnter={onEmailMouseEnter} onMouseLeave={onEmailMouseLeave} src={placeholder}></Img>
                 <Input onChange={onEmailChange} value={email} placeholder='ivanoff@mail.ru'
                     style={{ backgroundColor: emailError ? 'rgba(255, 173, 173, 0.63)' : 'white' }} required></Input>
                 {emailError &&
                     <Error onMouseEnter={onEmailMouseEnter} onMouseLeave={onEmailMouseLeave}>некорректный формат</Error>}
                 {emailTooltip &&
-                    <Tooltip onMouseEnter={onEmailMouseEnter} onMouseLeave={onEmailMouseLeave}>
+                    <Tooltip>
                         <P>- обязательное поле</P>
                     </Tooltip>}
             </Wrapper>
 
             <Wrapper>
-                <Label onMouseEnter={onPhoneMouseEnter} onMouseLeave={onPhoneMouseLeave}>Телефон<Span title='обязательное поле'>*</Span></Label>
+                <Label>Телефон<Span title='обязательное поле'>*</Span></Label>
+                <Img onMouseEnter={onPhoneMouseEnter} onMouseLeave={onPhoneMouseLeave} style={{ right: '270px' }} src={placeholder}></Img>
                 <PhoneInput onChange={onPhoneChange} value={phone} phoneError={phoneError} />
                 {phoneError &&
                     <Error onMouseEnter={onPhoneMouseEnter} onMouseLeave={onPhoneMouseLeave}>некорректный формат</Error>}
                 {phoneTooltip &&
-                    <Tooltip onMouseEnter={onPhoneMouseEnter} onMouseLeave={onPhoneMouseLeave}>
+                    <Tooltip >
                         <P>- обязательное поле</P>
                         <P>- только цифры</P>
                         <P>- миниум 10 символов</P>

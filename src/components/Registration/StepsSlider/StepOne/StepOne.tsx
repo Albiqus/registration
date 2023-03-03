@@ -1,8 +1,9 @@
-import { DateInput, Div, Error, Input, Label, P, RadioInput, RadioLabel, RadioWrapper, Span, Tooltip, Wrapper } from "./StepOne-styles"
+import { DateInput, Div, Error, Img, Input, Label, P, RadioInput, RadioLabel, RadioWrapper, Span, Tooltip, Wrapper } from "./StepOne-styles"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/redux-store";
 import { isValid } from "../../../../utils/isValid";
 import { useEffect, useState } from 'react';
+import placeholder from '../../../../images/icons/placeholder.png'
 
 
 export const StepOne = () => {
@@ -62,21 +63,22 @@ export const StepOne = () => {
             !lastNameError
         ) {
             dispatch({ type: 'ADD_VALID_STEP', payload: { step: 1 } })
-        } else { 
+        } else {
             dispatch({ type: 'DELETE_VALID_STEP', payload: { step: 1 } })
-        } 
+        }
     }, [firstName, lastName, firNameError, lastNameError])
 
     return (
         <Div>
             <Wrapper>
-                <Label onMouseEnter={onFirNameMouseEnter} onMouseLeave={onFirNameMouseLeave}>Имя<Span title='обязательное поле'>*</Span></Label>
+                <Label>Имя<Span title='обязательное поле'>*</Span></Label>
+                <Img onMouseEnter={onFirNameMouseEnter} onMouseLeave={onFirNameMouseLeave} src={placeholder}></Img>
                 <Input onChange={onFirstNameChange} value={firstName} placeholder='Иван'
                     style={{ backgroundColor: firNameError ? 'rgba(255, 173, 173, 0.63)' : 'white' }} required></Input>
                 {firNameError &&
                     <Error onMouseEnter={onFirNameMouseEnter} onMouseLeave={onFirNameMouseLeave}>некорректный формат</Error>}
                 {firNameTooltip &&
-                    <Tooltip onMouseEnter={onFirNameMouseEnter} onMouseLeave={onFirNameMouseLeave}>
+                    <Tooltip>
                         <P>- обязательное поле</P>
                         <P>- минимум 2 символа</P>
                         <P>- максимум 15 символов</P>
@@ -87,12 +89,13 @@ export const StepOne = () => {
             </Wrapper>
 
             <Wrapper>
-                <Label onMouseEnter={onLastNameMouseEnter} onMouseLeave={onLastNameMouseLeave}>Фамилия<Span title='обязательное поле'>*</Span></Label>
+                <Label>Фамилия<Span title='обязательное поле'>*</Span></Label>
+                <Img onMouseEnter={onLastNameMouseEnter} onMouseLeave={onLastNameMouseLeave} src={placeholder} style={{ right: '270px' }}></Img>
                 <Input onChange={onLastNameChange} value={lastName} placeholder='Иванов'
                     style={{ backgroundColor: lastNameError ? 'rgba(255, 173, 173, 0.63)' : 'white' }} required></Input>
                 {lastNameError && <Error onMouseEnter={onLastNameMouseEnter} onMouseLeave={onLastNameMouseLeave}>некорректный формат</Error>}
                 {lastNameTooltip &&
-                    <Tooltip onMouseEnter={onLastNameMouseEnter} onMouseLeave={onLastNameMouseLeave}>
+                    <Tooltip>
                         <P>- обязательное поле</P>
                         <P>- минимум 2 символа</P>
                         <P>- максимум 20 символов</P>
