@@ -5,6 +5,7 @@ import { Div, Error, Img, Input, Label, P, Span, Tooltip, Wrapper } from "./Step
 import { useEffect, useState } from 'react';
 import { isValid } from "../../../../utils/isValid";
 import placeholder from '../../../../images/icons/placeholder.png'
+import { format } from "../../../../utils/format";
 
 
 export const StepTwo = () => {
@@ -34,11 +35,13 @@ export const StepTwo = () => {
     }
 
     const onCountryChange = (e) => {
-        dispatch({ type: 'SET_COUNTRY', payload: { country: e.target.value } })
+        const formatedValue = format(e.target.value)
+        dispatch({ type: 'SET_COUNTRY', payload: { country: formatedValue } })
     }
 
     const onCityChange = (e) => {
-        dispatch({ type: 'SET_CITY', payload: { city: e.target.value } })
+        const formatedValue = format(e.target.value)
+        dispatch({ type: 'SET_CITY', payload: { city: formatedValue } })
     }
 
     const onWebsiteChange = (e) => {

@@ -4,6 +4,7 @@ import { RootState } from "../../../../store/redux-store";
 import { isValid } from "../../../../utils/isValid";
 import { useEffect, useState } from 'react';
 import placeholder from '../../../../images/icons/placeholder.png'
+import { format } from "../../../../utils/format";
 
 
 export const StepOne = () => {
@@ -22,12 +23,14 @@ export const StepOne = () => {
     const [lastNameTooltip, setLastNameTooltip] = useState(false)
 
     const onFirstNameChange = (e) => {
-        dispatch({ type: 'SET_FIRST_NAME', payload: { firstName: e.target.value } })
+        const formatedValue = format(e.target.value)
+        dispatch({ type: 'SET_FIRST_NAME', payload: { firstName: formatedValue } })
         setFirNameError(!isValid(e.target.value, 'FIRST_NAME'))
     }
 
     const onLastNameChange = (e) => {
-        dispatch({ type: 'SET_LAST_NAME', payload: { lastName: e.target.value } })
+        const formatedValue = format(e.target.value)
+        dispatch({ type: 'SET_LAST_NAME', payload: { lastName: formatedValue } })
         setLastNameError(!isValid(e.target.value, 'LAST_NAME'))
     }
 
