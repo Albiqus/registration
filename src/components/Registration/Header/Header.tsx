@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 
 export const Header = () => {
-    const currentStep: any = useSelector((state: RootState) => state.main.currentStep)
+    const currentStep: any = useSelector((state: RootState) => state.steps.currentStep)
 
     return (
         <Wrapper>

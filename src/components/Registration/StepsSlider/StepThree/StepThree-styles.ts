@@ -62,3 +62,15 @@ export const Img = styled.img`
         cursor: pointer;
 }
 `
+
+export const Error = styled.p`
+    margin: 0;
+    bottom: 6px;
+    right: 10px;
+    position: absolute;
+    color: red;
+    font-family: 'custom', sans-serif;
+    &:hover{
+        cursor: default;
+            }
+`

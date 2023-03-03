@@ -10,11 +10,12 @@ import { StepTwo } from './StepTwo/StepTwo';
 export const StepsSlider = () => {
 
     const dispatch = useDispatch()
-    const currentStep: any = useSelector((state: RootState) => state.main.currentStep)
-    const isValid: any = useSelector((state: RootState) => state.main.isValid)
+    const currentStep: any = useSelector((state: RootState) => state.steps.currentStep)
+    const validSteps: any = useSelector((state: RootState) => state.steps.validSteps)
+    
 
     const onNextSlideClick = () => {
-        if (currentStep !== 3 && isValid) {
+        if (currentStep !== 3) {
             dispatch({ type: 'SET_CURRENT_STEP', payload: { currentStep: currentStep + 1 } })
         }
     }
@@ -24,7 +25,9 @@ export const StepsSlider = () => {
             dispatch({ type: 'SET_CURRENT_STEP', payload: { currentStep: currentStep - 1 } })
         }
     }
-   
+
+    const nextButtonClassName = validSteps.includes(currentStep) ? classes.bar : `${classes.bar} ${classes.hidden}`
+
     return (
         <div className={classes.sliderMiddle}>
             <div className={classes.slides}>
@@ -42,14 +45,14 @@ export const StepsSlider = () => {
 
                 <div className={classes.slide}>
                     <StepThree />
-                </div>      
+                </div>
             </div>
             <div className={classes.navigation}>
                 <div className={currentStep !== 1 ? classes.wrapperPrev : `${classes.wrapperPrev} ${classes.hidden}`}>
                     <label onClick={onPrevSlideClick} className={classes.bar} htmlFor={`r${currentStep}`}>назад</label>
                 </div>
-                <div className={classes.wrapperNext }>
-                     <label onClick={onNextSlideClick} className={classes.bar} htmlFor={`r${currentStep}`}>далее</label>
+                <div className={classes.wrapperNext}>
+                    <label onClick={onNextSlideClick} className={nextButtonClassName} htmlFor={`r${currentStep}`}>далее</label>
                 </div>
             </div>
         </div>

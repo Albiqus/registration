@@ -2,16 +2,17 @@ import { DateInput, Div, Error, Input, Label, P, RadioInput, RadioLabel, RadioWr
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/redux-store";
 import { isValid } from "../../../../utils/isValid";
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 export const StepOne = () => {
 
     const dispatch = useDispatch()
-    const gender: any = useSelector((state: RootState) => state.main.gender)
-    const firstName: any = useSelector((state: RootState) => state.main.firstName)
-    const lastName: any = useSelector((state: RootState) => state.main.lastName)
-    const birthday: any = useSelector((state: RootState) => state.main.birthday)
+    const gender: any = useSelector((state: RootState) => state.inputData.gender)
+    const firstName: any = useSelector((state: RootState) => state.inputData.firstName)
+    const lastName: any = useSelector((state: RootState) => state.inputData.lastName)
+    const birthday: any = useSelector((state: RootState) => state.inputData.birthday)
+
 
     const [firNameError, setFirNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
@@ -55,13 +56,15 @@ export const StepOne = () => {
 
     useEffect(() => {
         if (
+            Boolean(firstName) &&
+            Boolean(lastName) &&
             !firNameError &&
-            !lastNameError &&
-            firstName &&
-            lastName
-        ) dispatch({ type: 'SET_IS_VALID', payload: { status: true } })
-        else dispatch({ type: 'SET_IS_VALID', payload: { status: false } })
-
+            !lastNameError
+        ) {
+            dispatch({ type: 'ADD_VALID_STEP', payload: { step: 1 } })
+        } else { 
+            dispatch({ type: 'DELETE_VALID_STEP', payload: { step: 1 } })
+        } 
     }, [firstName, lastName, firNameError, lastNameError])
 
     return (

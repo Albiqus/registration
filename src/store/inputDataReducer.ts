@@ -1,5 +1,3 @@
-
-const SET_CURRENT_STEP = 'SET_CURRENT_STEP'
 const SET_FIRST_NAME = 'SET_FIRST_NAME'
 const SET_LAST_NAME = 'SET_LAST_NAME'
 const SET_GENDER = 'SET_GENDER'
@@ -11,11 +9,11 @@ const SET_CITY = 'SET_CITY'
 const SET_WEBSITE = 'SET_WEBSITE'
 const SET_PASSWORD = 'SET_PASSWORD'
 const SET_SECOND_PASSWORD = 'SET_SECOND_PASSWORD'
-const SET_IS_VALID = 'SET_IS_VALID'
+const SET_FIR_NAME_ERROR = 'SET_FIR_NAME_ERROR'
+const SET_LAST_NAME_ERROR = 'SET_LAST_NAME_ERROR'
+
 
 const startState = {
-    isValid: false,
-    currentStep: 1,
     firstName: '',
     lastName: '',
     gender: 'male',
@@ -29,18 +27,18 @@ const startState = {
     secondPassword: ''
 }
 
-export const mainReducer = (state = startState, action: any) => {
+export const inputDataReducer = (state = startState, action: any) => {
     switch (action.type) {
-        case SET_IS_VALID: {
+        case SET_LAST_NAME_ERROR: {
             return {
                 ...state,
-                isValid: action.payload.status
+                lastNameError: action.payload.status
             }
         }
-        case SET_CURRENT_STEP: {
+        case SET_FIR_NAME_ERROR: {
             return {
                 ...state,
-                currentStep: action.payload.currentStep
+                firNameError: action.payload.status
             }
         }
         case SET_FIRST_NAME: {

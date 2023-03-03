@@ -15,7 +15,6 @@
 }
 
 .slide {
-
     width: 25%;
     transition: all .6s ease;
 }
@@ -62,9 +61,8 @@
     height: 40px;
     width: 200px;
     cursor: pointer;
-  background-color: rgba(0, 191, 255, 0.322);
+    background-color: rgba(0, 191, 255, 0.322);
     border-radius: 10px;
-    transition: all .4s ease;
 }
 
 .bar:hover {
@@ -103,4 +101,3 @@
 .stepThree:checked~.s1 {
     margin-left: -50%;
 }
-
