@@ -10,14 +10,16 @@ import { StepTwo } from './StepTwo/StepTwo';
 export const StepsSlider = () => {
 
     const dispatch = useDispatch()
-    const currentStep: any = useSelector((state: RootState) => state.steps.currentStep)
+    const currentStep: number = useSelector((state: RootState) => state.steps.currentStep)
     const validSteps: any = useSelector((state: RootState) => state.steps.validSteps)
     
 
     const onNextSlideClick = () => {
         if (currentStep !== 3) {
             dispatch({ type: 'SET_CURRENT_STEP', payload: { currentStep: currentStep + 1 } })
+            return
         }
+        dispatch({ type: 'SET_IS_SUBMIT_DATA' })
     }
 
     const onPrevSlideClick = () => {
@@ -25,6 +27,7 @@ export const StepsSlider = () => {
             dispatch({ type: 'SET_CURRENT_STEP', payload: { currentStep: currentStep - 1 } })
         }
     }
+
 
     const nextButtonClassName = validSteps.includes(currentStep) ? classes.bar : `${classes.bar} ${classes.hidden}`
 
@@ -46,6 +49,7 @@ export const StepsSlider = () => {
                 <div className={classes.slide}>
                     <StepThree />
                 </div>
+                
             </div>
             <div className={classes.navigation}>
                 <div className={currentStep !== 1 ? classes.wrapperPrev : `${classes.wrapperPrev} ${classes.hidden}`}>

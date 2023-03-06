@@ -1,4 +1,4 @@
-import { EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, PHONE } from "../data/data"
+import { CITY, COUNTRY, EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, PHONE } from "../data/data"
 import { checkPasswordNumbers } from "./checkPasswordNumbers"
 import { checkPasswordSpecialSymbols } from "./checkPasswordSpecialSymbols"
 import { checkPasswordUpperCaseSymbols } from "./checkPasswordUpperCaseSymbols"
@@ -57,6 +57,36 @@ export const isValid = (value, type) => {
                 return false
             }
             if (!checkPasswordSpecialSymbols(value, /^[a-zа-яА-ЯЁё0-9]+$/i)) {
+                return false
+            }
+            return true
+        }
+        case COUNTRY: {
+            if (value.length === 0) {
+                return true
+            }
+            if (!isValidSymbols(value, /^[a-zа-яА-ЯЁё]+$/i)) {
+                return false
+            }
+            if (!isValidLength(value, type)) {
+                return false
+            }
+            if (!isValidUpperCaseCount(value)) {
+                return false
+            }
+            return true
+        }
+        case CITY: {
+            if (value.length === 0) {
+                return true
+            }
+            if (!isValidSymbols(value, /^[a-zа-яА-ЯЁё]+$/i)) {
+                return false
+            }
+            if (!isValidLength(value, type)) {
+                return false
+            }
+            if (!isValidUpperCaseCount(value)) {
                 return false
             }
             return true

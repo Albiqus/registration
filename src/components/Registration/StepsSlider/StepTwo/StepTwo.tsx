@@ -11,59 +11,69 @@ import { format } from "../../../../utils/format";
 export const StepTwo = () => {
 
     const dispatch = useDispatch()
-    const email: any = useSelector((state: RootState) => state.inputData.email)
-    const phone: any = useSelector((state: RootState) => state.inputData.phone)
-    const country: any = useSelector((state: RootState) => state.inputData.country)
-    const city: any = useSelector((state: RootState) => state.inputData.city)
-    const website: any = useSelector((state: RootState) => state.inputData.website)
-    
+    const { email, phone, country, city, website } = useSelector((state: RootState) => state.inputData)
+
+
     const [emailError, setEmailError] = useState(false)
     const [phoneError, setPhoneError] = useState(false)
+    const [countryError, setCountryError] = useState(false)
+    const [cityError, setCityError] = useState(false)
 
     const [emailTooltip, setEmailTooltip] = useState(false)
     const [phoneTooltip, setPhoneTooltip] = useState(false)
-
+    const [countryTooltip, setCountryTooltip] = useState(false)
+    const [cityTooltip, setCityTooltip] = useState(false)
 
     const onEmailChange = (e) => {
-        dispatch({ type: 'SET_EMAIL', payload: { email: e.target.value } })
+        setEmailTooltip(false)
+        const formatedValue = format(e.target.value, 'EMAIL')
+        dispatch({ type: 'SET_EMAIL', payload: { email: formatedValue } })
         setEmailError(!isValid(e.target.value, 'EMAIL'))
     }
 
     const onPhoneChange = (e) => {
+        setPhoneTooltip(false)
         dispatch({ type: 'SET_PHONE', payload: { phone: e.target.value } })
         setPhoneError(!isValid(e.target.value, 'PHONE'))
     }
 
     const onCountryChange = (e) => {
-        const formatedValue = format(e.target.value)
+        setCountryTooltip(false)
+        const formatedValue = format(e.target.value, 'COUNTRY')
         dispatch({ type: 'SET_COUNTRY', payload: { country: formatedValue } })
+        setCountryError(!isValid(e.target.value, 'COUNTRY'))
     }
 
     const onCityChange = (e) => {
-        const formatedValue = format(e.target.value)
+        setCityTooltip(false)
+        const formatedValue = format(e.target.value, 'CITY')
         dispatch({ type: 'SET_CITY', payload: { city: formatedValue } })
+        setCityError(!isValid(e.target.value, 'CITY'))
     }
 
     const onWebsiteChange = (e) => {
-        dispatch({ type: 'SET_WEBSITE', payload: { website: e.target.value } })
+        const formatedValue = format(e.target.value, 'WEBSITE')
+        dispatch({ type: 'SET_WEBSITE', payload: { website: formatedValue } })
     }
 
-
     const onEmailMouseEnter = () => setEmailTooltip(true)
-
-
     const onEmailMouseLeave = () => setEmailTooltip(false)
 
-
     const onPhoneMouseEnter = () => setPhoneTooltip(true)
-
-
     const onPhoneMouseLeave = () => setPhoneTooltip(false)
 
+    const onCountryMouseEnter = () => setCountryTooltip(true)
+    const onCountryMouseLeave = () => setCountryTooltip(false)
+
+    const onCityMouseEnter = () => setCityTooltip(true)
+    const onCityMouseLeave = () => setCityTooltip(false)
+        
     useEffect(() => {
         if (
-            Boolean(email) &&
-            Boolean(phone) &&
+            !!email &&
+            !!phone &&
+            !cityError &&
+            !countryError &&
             !emailError &&
             !phoneError
         ) {
@@ -71,7 +81,7 @@ export const StepTwo = () => {
         } else {
             dispatch({ type: 'DELETE_VALID_STEP', payload: { step: 2 } })
         }
-    }, [email, phone, emailError, phoneError])
+    }, [email, phone, emailError, phoneError, countryError, cityError])
 
 
     return (
@@ -103,11 +113,35 @@ export const StepTwo = () => {
                     </Tooltip>}
             </Wrapper>
 
-            <Label>Страна</Label>
-            <Input onChange={onCountryChange} value={country} placeholder='Россия'></Input>
+            <Wrapper>
+                <Label>Страна</Label>
+                <Img onMouseEnter={onCountryMouseEnter} onMouseLeave={onCountryMouseLeave} style={{ right: '280px' }} src={placeholder}></Img>
+                <Input onChange={onCountryChange} value={country} placeholder='Россия'></Input>
+                {countryError &&
+                    <Error onMouseEnter={onCountryMouseEnter} onMouseLeave={onCountryMouseLeave}>некорректный формат</Error>}
+                {countryTooltip &&
+                    <Tooltip style={{ left: '10px' }}>
+                        <P>- только буквы</P>
+                        <P>- минимум 2 символа</P>
+                        <P>- максимум 20 символа</P>
+                        <P>- только первая буква в верхнем регистре</P>
+                    </Tooltip>}
+            </Wrapper>
 
-            <Label>Город</Label>
-            <Input onChange={onCityChange} value={city} placeholder='Санкт-Петербург' ></Input>
+            <Wrapper>
+                <Label>Город</Label>
+                <Img onMouseEnter={onCityMouseEnter} onMouseLeave={onCityMouseLeave} style={{ right: '280px' }} src={placeholder}></Img>
+                <Input onChange={onCityChange} value={city} placeholder='Санкт-Петербург' ></Input>
+                {cityError &&
+                    <Error onMouseEnter={onCityMouseEnter} onMouseLeave={onCityMouseLeave}>некорректный формат</Error>}
+                {cityTooltip &&
+                    <Tooltip style={{ left: '10px' }}>
+                        <P>- только буквы</P>
+                        <P>- минимум 2 символа</P>
+                        <P>- максимум 30 символов</P>
+                        <P>- только первая буква в верхнем регистре</P>
+                    </Tooltip>}
+            </Wrapper>
 
             <Label>Веб сайт</Label>
             <Input onChange={onWebsiteChange} value={website} placeholder='www.mysite.ru'></Input>

@@ -10,8 +10,9 @@ import { isSamePasswords } from "../../../../utils/isSamePasswords";
 
 export const StepThree = () => {
     const dispatch = useDispatch()
-    const password: any = useSelector((state: RootState) => state.inputData.password)
-    const secondPassword: any = useSelector((state: RootState) => state.inputData.secondPassword)
+
+
+    const { password, secondPassword } = useSelector((state: RootState) => state.inputData)
 
     const [passError, setPassError] = useState(false)
     const [diffPassError, setDiffPassError] = useState(true)
@@ -41,8 +42,8 @@ export const StepThree = () => {
 
     useEffect(() => {
         if (
-            Boolean(password) &&
-            Boolean(secondPassword) &&
+            !!password &&
+            !!secondPassword &&
             !passError &&
             !diffPassError
         ) {

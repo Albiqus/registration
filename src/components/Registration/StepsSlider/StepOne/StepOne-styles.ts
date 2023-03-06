@@ -7,7 +7,6 @@ export const Div = styled.div`
     `
 
 export const Label = styled.label`  
-
     text-align: center;
     display: block;
     font-size: 22px;

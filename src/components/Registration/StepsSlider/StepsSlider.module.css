@@ -90,6 +90,11 @@
     visibility: hidden;
 }
 
+.successWindow {
+    position: absolute;
+    visibility: hidden;
+}
+
 .stepOne:checked~.s1 {
     margin-left: 0;
 }
@@ -100,4 +105,8 @@
 
 .stepThree:checked~.s1 {
     margin-left: -50%;
+}
+
+.successWindow~.s1 {
+    margin-left: -75%;
 }

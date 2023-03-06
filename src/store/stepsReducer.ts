@@ -2,10 +2,12 @@
 const SET_CURRENT_STEP = 'SET_CURRENT_STEP'
 const ADD_VALID_STEP = 'ADD_VALID_STEP'
 const DELETE_VALID_STEP = 'DELETE_VALID_STEP'
+const SET_IS_SUBMIT_DATA = 'SET_IS_SUBMIT_DATA'
 
 const startState = {
     validSteps: [],
     currentStep: 1,
+    isSubmitData: false,
 }
 
 export const stepsReducer = (state = startState, action: any) => {
@@ -29,6 +31,12 @@ export const stepsReducer = (state = startState, action: any) => {
             return {
                 ...state,
                 currentStep: action.payload.currentStep
+            }
+        }
+        case SET_IS_SUBMIT_DATA: {
+            return {
+                ...state,
+                isSubmitData: true
             }
         }
         default:

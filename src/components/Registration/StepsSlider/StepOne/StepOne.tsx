@@ -10,11 +10,7 @@ import { format } from "../../../../utils/format";
 export const StepOne = () => {
 
     const dispatch = useDispatch()
-    const gender: any = useSelector((state: RootState) => state.inputData.gender)
-    const firstName: any = useSelector((state: RootState) => state.inputData.firstName)
-    const lastName: any = useSelector((state: RootState) => state.inputData.lastName)
-    const birthday: any = useSelector((state: RootState) => state.inputData.birthday)
-
+    const { gender, firstName, lastName, birthday } = useSelector((state: RootState) => state.inputData);
 
     const [firNameError, setFirNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
@@ -23,13 +19,15 @@ export const StepOne = () => {
     const [lastNameTooltip, setLastNameTooltip] = useState(false)
 
     const onFirstNameChange = (e) => {
-        const formatedValue = format(e.target.value)
+        setFirNameTooltip(false)
+        const formatedValue = format(e.target.value, 'FIRST_NAME')
         dispatch({ type: 'SET_FIRST_NAME', payload: { firstName: formatedValue } })
         setFirNameError(!isValid(e.target.value, 'FIRST_NAME'))
     }
 
     const onLastNameChange = (e) => {
-        const formatedValue = format(e.target.value)
+        setLastNameTooltip(false)
+        const formatedValue = format(e.target.value, 'LAST_NAME')
         dispatch({ type: 'SET_LAST_NAME', payload: { lastName: formatedValue } })
         setLastNameError(!isValid(e.target.value, 'LAST_NAME'))
     }
@@ -48,20 +46,15 @@ export const StepOne = () => {
 
 
     const onFirNameMouseEnter = () => setFirNameTooltip(true)
-
-
     const onFirNameMouseLeave = () => setFirNameTooltip(false)
 
-
     const onLastNameMouseEnter = () => setLastNameTooltip(true)
-
-
     const onLastNameMouseLeave = () => setLastNameTooltip(false)
 
     useEffect(() => {
         if (
-            Boolean(firstName) &&
-            Boolean(lastName) &&
+            !!firstName &&
+            !!lastName &&
             !firNameError &&
             !lastNameError
         ) {
@@ -86,7 +79,6 @@ export const StepOne = () => {
                         <P>- минимум 2 символа</P>
                         <P>- максимум 15 символов</P>
                         <P>- только буквы</P>
-                        <P>- первая буква в верхнем регистре</P>
                         <P>- только первая буква в верхнем регистре</P>
                     </Tooltip>}
             </Wrapper>
